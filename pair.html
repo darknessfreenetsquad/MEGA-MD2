@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!<DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -436,10 +436,10 @@
           showStatus('Generating your pairing code...', 'processing');
           
           // Simulate API call (replace with your actual API call)
-          const { data } = await axios.get(`/code?number=${phoneNumber.replace('+', '')}`);
+          const cleanNumber = phoneNumber.replace(/\D/g, '');  const { data } = await axios.get(   'https://YOUR_BACKEND_DOMAIN/pair',   { params: { number: cleanNumber } } );
           
           // Display the code
-          const code = data.code || "1234 5678"; // Fallback for demo
+          if (!data.code) {   throw new Error('No pairing code received'); }  const code = data.code; // Fallback for demo
           pairElement.textContent = code;
           pairElement.style.display = 'block';
           pairElement.onclick = copyCode;
